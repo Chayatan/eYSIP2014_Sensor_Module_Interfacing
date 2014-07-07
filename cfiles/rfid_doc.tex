@@ -1,0 +1,75 @@
+\documentclass[a4paper,11pt]{article}
+%\documentclass[a4wide]{scrreprt}
+
+%\usepackage{palatino}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{array} 
+\topmargin -1.5cm 
+\oddsidemargin -0.04cm 
+\evensidemargin -0.04cm 
+\textwidth 16.59cm
+\textheight 21.94cm
+
+\parskip 7.2pt % sets spacing between paragraphs
+
+%\renewcommand{\baselinestretch}{1.5} % Uncomment for 1.5 spacing between lines
+
+\parindent 0pt % sets leading space for paragraphs
+
+\title {Project Report \\ Sensor Module Interfacing \\[10pt] Task: RFID Module Interfacing \\[25pt] Team members }
+\author {Chayatan \and Mukilan A \and Shanthanu Senguptha}
+
+\begin{document}
+\maketitle
+\begin{center}
+\begin{large}
+Under the guidance of\\
+\textbf{Prof. Kavi Arya\\and\\Parin Chedda}\\
+\end{large}
+\end{center}
+\begin{center}
+\includegraphics[scale=0.32]{images/iitb}
+\end{center}
+\begin{center}
+\begin{large}
+Embedded and Real-Time Systems Laboratory \\
+Department of Computer Science and Engineering \\
+Indian Institute of Technology \\
+Bombay \\
+\end{large}
+\end{center}
+%\pagenumbering{roman} % Roman page number for toc
+%\setcounter{page}{1} % Make it start with "ii"
+
+\newpage
+\tableofcontents
+\newpage
+
+\begin{abstract}
+The project aims at Constructing a simple circuit and choosing the appropriate protocol to interface RFID sensor Module to the FireBird V Robot. in the present scenario the most common problem faced on this planet is the identification problem. where ever you go people ask your identity proof. Nowadays we need to take permission to carry our belongings too. in order to track this problem we henceforth came up with this idea of using RFID reader and RFID tags. 
+\end{abstract}
+
+\section{Introduction}
+\begin{Large}
+Radio Frequency Identification (RFID) is a technique that uses short range radio frequency transmissions to read and write data to an RFID tag. This tag can be powered by an electromagnetic field, eliminating the requirement of using of batteries or mains power for the device. This device is most commonly used as a way to uniquely identify a specific device or object.
+\\
+The detail description of RFID reader, different types of tags, interfacing circuit, appropriate C code and its major applications in todays world is explained below.
+\end{Large}
+
+
+\newpage
+
+\section{RFID Reader}
+\begin{scriptsize}
+The EM-18 RFID Reader module operating at 125 kHz is an inexpensive solution for your RFID based application. The Reader module comes with an on-chip antenna and can be powered up with a 5V power supply. 
+Power-up the module and connect the transmit pin of the module to receive pin of the microcontroller. Show your card within the reading distance and the card number is thrown at the output. Optionally the module can be configured for also a weigand output.\\
+\begin{figure}
+\includegraphics{em18}
+\end{figure}
+
+\end{scriptsize}
+
+\newpage
+
+\end{document}

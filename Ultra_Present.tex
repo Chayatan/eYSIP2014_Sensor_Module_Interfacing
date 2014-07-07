@@ -1,0 +1,262 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% Standard LaTeX Template used for creating presentation of Firebird-V Robot and other tutorials. 
+% Author: Saurav Shandilya (e-Yantra Team)
+% Reference: www.LaTeXTemplates.com Version 1.0 (10/11/12)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+		
+\documentclass[table,10pt,red]{beamer}	% First line -- Define document class as Beamer which is used for creating presentation using Latex
+\setbeamercolor{alerted text}{fg=blue} 	% Sets color of highlighted text during presentation.  
+ 
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+\usetheme{Berlin}		%used theme in present documents.
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+%}
+
+%------------------------------------------------------------------------------------------
+%	\usepackage is required for including various features like images, table, references etc.
+%	Packages must be installed before using. These can be istalled through package manager. 
+%   Various packages have dependencies and for using such packages all dependent packages must be used. 
+%-----------------------------------------------------------------------------------------
+\usepackage{beamerthemeshadow} % theme shadow for visual 
+\usepackage{beamerthemesplit} % Creates minipage (for showing multiple images and text) on same page  
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{xcolor}
+\usepackage{booktabs,array}
+\usepackage{listings}
+\usepackage{hyperref}	% Required for including hyperlink in document
+\usepackage{verbatim,moreverb} % Required for including code snippet.
+\usepackage{colortbl}
+\usepackage{multirow}	% Required for creating multiple row tables
+\usepackage{tikz}		% Required for drawing shapes such as circles, arrowed line, etc. 
+\usetikzlibrary{arrows}
+
+% logo
+\logo{\includegraphics[height=1cm]{iitblogo.pdf}} % includes logo at bottom of all slides 
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+% sf family, bold font
+\sffamily \bfseries
+% content inside [] appears at bottom of all page. content inside {} appears on first page as title. double backslash means line change 
+\title
+[
+	Ultrasonic Sensor Module Interfacing	% bottom of all page
+	\hspace{0.5cm}
+	\insertframenumber/\inserttotalframenumber
+]
+{
+Ultrasonic Range Sensor Module Interfacing
+}
+
+\author
+[
+	www.e-yantra.org 	%Name at bottom of all page 
+]
+% author name on title slide
+{ 
+	Embedded Real-Time Systems Lab\\
+  Indian Institute of Technology-Bombay \\
+}
+\date
+{
+IIT Bombay \\ {\today}	%\today picks system date on title slide
+}
+
+\begin{document} % IN LATEX ALL DOCUMENT/REPORT/PRESENTATION STARTS WITH \begin{document} AND ENDS WITH \end{document}
+
+\begin{frame}	% FRAME MEANS SLIDE. \begin{frame} STARTS THE SLIDE AND \end{frame} ENDS THE SLIDE
+	\titlepage % Print the title page as the first slide
+\end{frame}
+
+% START OF SECOND SLIDE
+\begin{frame}
+	\frametitle{Agenda for Discussion} % Table of contents slide, comment this block out to remove it
+	\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+\section{Introduction to Ultrasonic Sensor} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+%------------------------------------------------
+
+
+% Start of Third slide
+\begin{frame}
+	\frametitle{What is an Ultrasonic Sensor}
+ 		\begin{enumerate}[$\checkmark$]
+ 				\item <+-|alert@+> Ultrasonic sensors are transmitter receiver units that generate high frequency sound waves and the echo sent back is received and sent for processing. 
+ 				
+ 				\item <+-|alert@+> Sensor transmitting and receiving light waves are not dependable for applications with uneven surface objects and harsh environment. Therefore ultrasonic sensors are more widely used in those areas.
+ 				
+ 				\item <+-|alert@+> These sensors are mostly used for applications that include object detection and ranging. They are used in applications such as humidifiers, sonar, medical ultra sonography, burglar alarms, park assist technology, etc.
+ 				
+ 		\end{enumerate}
+\end{frame}
+
+%------------------------------------------------
+\section{MB 1310 Sensor Module}
+% Start of fourth slide
+\subsection{About MB 1310 Sensor Module} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+\begin{frame}
+	\frametitle{About MB 1310}
+	\begin{minipage}[c]{0.2\textwidth}
+				\includegraphics[width=\linewidth]{mb1310}
+			\end{minipage}
+		\pause
+		\hfill
+			\begin{minipage}[c]{0.75\textwidth}
+				\begin{enumerate}
+					\item <+-|alert@+> \small MB 1310 operates over low power $3.3V-5V$ range. 
+					\item <+-|alert@+> Detection Range – $0 - 765cm$.
+					\item <+-|alert@+> Ranging Range – $20 - 765cm$.
+					\item <+-|alert@+> Pin 1 is the BW pin which decides the type of output through pin 5. This internally pulled high pin is left as it is. Pin 5 now sends data in RS 232 format. It is not used.
+					\item <+-|alert@+> Pin 2 is the PW pin which gives the PWM representation of the range detected.
+					\item <+-|alert@+> Rx pin is used to trigger the sensor.
+					\item <+-|alert@+> AN pin gives the analog output with a scaling factor of $V_{cc}/1024$ per cm.
+					\item <+-|alert@+> The Vcc and GND pins are respectively connected to the supply voltage 5V and ground.
+					
+				
+					
+				\end{enumerate}
+			\end{minipage}   
+
+\end{frame}
+
+
+
+
+
+
+\section{Mounting and Interfacing Ultrasonic Sensor} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+\subsection{Procedure for mounting}
+\begin{frame}
+	\frametitle{Mounting of Ultrasonic sensor}
+	\begin{minipage}[c]{0.4\textwidth}
+				\includegraphics[width=\linewidth]{Mounting}
+			\end{minipage}
+		\pause
+		\hfill
+			\begin{minipage}[c]{0.5\textwidth}
+				\begin{enumerate}
+				 
+				\item <+-|alert@+> \small The ultrasonic sensor is bolted on a C joint which is in turn mounted over the FireBird V as shown in the picture.
+				\item <+-|alert@+> The pin-out connections are then given to the servo pod pins given on our FireBird V.
+				\item <+-|alert@+> The interfacing connections are given in the picture next slide.
+				
+				\end{enumerate}   
+			\end{minipage}
+\end{frame}
+\subsection{Servo pod connections}
+\begin{frame}
+	\frametitle{Servo pod connections}
+	\begin{minipage}[c]{0.55\textwidth}
+				\includegraphics[width=\linewidth]{servopod}
+	\end{minipage}
+		\pause
+		\hfill
+					\begin{minipage}[c]{0.4\textwidth}
+						\begin{enumerate}
+						 
+						\item <+-|alert@+> \small Pin 1: ADC14 connected to analog input (pin 3) of ultrasonic sensor.
+						\item <+-|alert@+> Pin 6: GND of the ultrasonic sensor.
+						\item <+-|alert@+> Pin 7: Supply Voltage Vcc of the ultrasonic sensor.
+						
+						
+						
+						\end{enumerate}   
+					\end{minipage}
+
+\end{frame}
+\section{Calibration} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+\subsection{Calculating scaling factor}
+\begin{frame}
+	\frametitle{Calibration}
+	
+		 \small MB 1310 outputs analog voltage with a scaling factor of $(V{cc}/1024)/cm.$
+		 $$Supply\: Voltage = 5V$$
+		 $$Scaling\: factor= 5/1024 = 4.88mV/cm$$
+		 ATMEGA 2560 ADC resolution for the 10 bit ADC it uses $$ Resolution = Vcc/(2^n) =5/1024$$ $$= 4.88mV/ADC Step$$
+		 $$Distance\: in\: cm = ADC Steps * (4.88/4.88)$$ $$= ADC * 1$$ 
+		 $$Scaling\: Factor = 1$$
+\end{frame}
+
+\section{C Code} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+%------------------------------------------------
+
+
+% Start of Third slide
+\begin{frame}
+	\frametitle{C Code}
+ 		\begin{center}
+ 		\Huge C Code
+ 		\end{center}
+\end{frame}
+
+
+
+
+\end{document} 

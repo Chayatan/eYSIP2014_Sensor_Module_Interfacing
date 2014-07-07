@@ -1,0 +1,249 @@
+
+
+\documentclass[a4paper,12 pt]{article}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{refstyle}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={210mm,297mm},
+ left=25mm,
+ right=25mm,
+ top=25mm,
+ bottom=25mm,
+ }
+
+\title {Project Report \\ Sensor Module Interfacing \\[10pt] Task:
+Interfacing Accelerometer MMA7361 with ATmega2560 in Firebird V Robot \\[25pt] Team members }
+\author {Chayatan \and Mukilan A \and Shantanu}
+
+\begin{document}
+\maketitle
+\begin{center}
+\begin{large}
+Under the guidance of\\
+\textbf{Prof. Kavi Arya\\and\\Parin Chedda}\\
+\vspace{0.5in}
+\end{large}
+\end{center}
+\begin{center}
+\includegraphics[scale=0.32]{iitb.png}
+\end{center}
+\begin{center}
+\begin{large}
+Embedded and Real-Time Systems Laboratory \\
+Department of Computer Science and Engineering \\
+Indian Institute of Technology \\
+Bombay \\
+\end{large}
+\end{center}
+
+\newpage
+\tableofcontents
+\newpage
+
+\begin{abstract}
+The project aims at interfacing an accelerometer sensor with Fire Bird
+V educational robot. This additional module can be used for detection
+of the degree of tilt of the module. In this
+paper we will see about the basic  MMA7361 Accelerometer sensor
+module interfacing with Atmega 2560 in Fire Bird V robot. This will
+include the working principle, basic interfacing circuit, programming and
+applications of the MMA7361 Accelerometer.
+\end{abstract}
+
+\section{Introduction}
+\ \ As the name indicates this sensor is used to measure acceleration. Acceleration here does not mean rate of change in velocity in a particular axis. This sensor instead provides the ‘g’ force that is acting on the test mass located inside the sensor. The measure of force that each coordinate experiences due to the action of gravity is what the sensor actually measures. 
+	For example, an accelerometer at rest on the surface of the earth will measure an acceleration g= 9.81 m/s2 straight upwards, due to its weight. By contrast, accelerometers in free fall or at rest in outer space will measure zero. The term for the type of acceleration that accelerometers can measure is g-force acceleration.
+
+\section{How an Accelerometer Works } 
+\vspace {5 mm}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[]{gcell.png}
+\caption{Structure of a g-Cell}
+\label{fig:1}
+\end{center}
+\end{figure}
+\vspace{-20 pt}
+The Freescale accelerometer is a surface-micromachined integrated-circuit accelerometer. The device consists of a surface micromachined capacitive sensing cell (g-cell) and a signal conditioning ASIC contained in a single package.
+
+
+The g-cell is a mechanical structure, as shown in \figref{1}, formed from semiconductor materials (polysilicon) using semiconductor processes (masking and etching). It can be modeled as a set of beams attached to a movable central mass that move between fixed beams. The movable beams can be deflected from their rest position by subjecting the system to an acceleration. As the beams attached to the central mass move, the distance from them to the fixed beams on one side will increase by the same amount that the distance to the fixed beams on the other side decreases. The change in distance is a measure of acceleration. The g-cell beams form two back-to-back capacitors. As the center beam moves with acceleration, the distance between the beams changes and each capacitor's value will change, (C = Aε/D). Where A is the area of the beam, ε is the dielectric constant, and  D is the distance between the beams.
+
+%----------------------------------------------------------------------------------------------------------------
+\pagebreak
+
+\section{Pin Connections of MMA7361 Accelerometer }
+\vspace {5 mm}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[]{acc1.png}
+\caption{Pin Diagram}
+\label{fig:2}
+
+\includegraphics[]{acc2.png}
+\caption{Pin Connections of the Accelerometer}
+\label{fig:3}
+\end{center}
+\end{figure}
+%----------------------------------------------------------------------------------------------------------------
+
+\pagebreak
+\section{Connections of MMA7361 Accelerometer with the ATmega2560}
+\vspace {5 mm}
+\begin{enumerate}
+
+\item Connect the Xout, Yout, and Zout pins to the PORT K pins (analog channels ) of the ATmega2560 processor to convert the analog output values of the Accelerometer to digital values that can be used by the Microcontroller.
+\item Connect the Vss Pin of the accelerometer to the Ground pin of the Microcontroller.
+\item Connect the Vdd Pin of the accelerometer to the 3.3V of the Microcontroller.
+\item The Sleep pin is shorted to the Vdd pin of the Accelerometer, in order to provide significant reduction in the operating current.
+\item The remaining pins of the accelerometer i.e. Self Test, G select, 0g detect pins are left unconnected because
+\begin{itemize}
+
+\item  0g detect pin is an output pin which gives high output if all the x, y, z axes are at 0g.
+\item Self Test pin allows the verification of the mechanical and electrical integrity of the accelerometer at any time before or after installation.
+\item G select pins are left open because the operation of the accelerometer is in the 0g mode, where the sensitivity is 800mv/g.
+\end{itemize}
+\end{enumerate}
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[]{Picture1.png}
+\caption{Connections of MMA7361 Accelerometer with the ATmega2560}
+
+\end{center}
+\end{figure}
+\pagebreak
+%----------------------------------------------------------------------------------------------------------------
+\section{Orientation of the Accelerometer along the Various Axes}
+\vspace {5 mm}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[]{acc3.png}
+\caption{Orientation of the Accelerometer along the Various Axes}
+\label{fig:4}
+\end{center}
+\end{figure}
+\pagebreak
+%----------------------------------------------------------------------------------------------------------------
+\section{Table showing the values of the Accelerometer along the Various Axes}
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[]{acc4.png}
+\label{fig:5}
+\includegraphics[]{acc5.png}
+\label{fig:6}
+\end{center}
+\end{figure}
+\pagebreak
+%----------------------------------------------------------------------------------------------------------------
+
+
+\section{C Code}
+As explained earlier, this sensor, senses orientation of the particular axis and accordingly gives the analog output on the Xout, Yout and Zout pins. Therefore in this program, we compare these output values with a threshold and make the decisions.
+Some of the user-defined functions used in this program are:
+
+
+
+\begin{itemize}
+\item \begin{verbatim}
+acc_init_devices() function, initializes all the ADC ports and
+ configures the respective ADC registers.
+\end{verbatim}
+\end{itemize}
+
+\begin{itemize}
+\item	\begin{verbatim}
+acc() this function is used to sample the analog values, obtain
+ the corresponding digital values, and displays it on the LCD
+ screen.
+\end{verbatim}
+\end{itemize}
+
+\begin{itemize}
+\item	\begin{verbatim}
+acc_process() this function is used to compare the ADC values
+ with the threshold, make the oriental decision and updates the
+ left, right, forward and backward flags.
+\end{verbatim}
+\end{itemize}
+
+
+
+
+%-----------------------------------------------------------------------------
+\pagebreak
+\section{Sample Output as seen on LCD}
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[]{acco1.png}
+\label{fig:7}
+\vspace{7mm}
+\caption{LCD Sample Output : Forward}
+\includegraphics[]{acco2.png}
+\label{fig:8}
+\caption{LCD Sample Output : Right}
+\end{center}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[]{acco3.png}
+\label{fig:9}
+\caption{LCD Sample Output : Left}
+\vspace{7mm}
+\includegraphics[]{acco4.png}
+\caption{LCD Sample Output : Back}
+\label{fig:10}
+\end{center}
+\end{figure}
+\pagebreak
+
+%-----------------------------------------------------------------------------
+
+\section{Applications}
+
+\begin{itemize}
+\item Currently used in :
+\begin{itemize}
+\item Mobiles and iPods for changing orientation from Landscape to Portrait mode or vice versa.
+\item Gaming for motion sensing
+\item Protect laptops and mobiles when under free fall
+\item Vehicles to detect collision and deploy airbags.
+\item As an alternative to spirit level for balancing.
+\end{itemize}
+\item Future Uses :
+
+\begin{itemize}
+\item Can be used for simulating driver training, in which a steering wheel including an accelerometer will turn the vehicle on the screen according to the tilt provided. This would enable safe driving practice with any dangers of collision.
+\item For Robot Movement similar to the walking support system as shown in the picture \figref{11}
+
+\item Accelerometers measuring dynamic forces such as vibrations can be used for designing Virtual Keyboards as shown in 10b
+\begin{figure}[h]
+        \centering
+        \begin{subfigure}[b]{0.55\textwidth}
+                \includegraphics[width=\textwidth]{accapp.png}
+                \caption{Walking Support System}
+                \label{fig:11}
+        \end{subfigure}%
+        \begin{subfigure}[b]{0.40\textwidth}
+                \includegraphics[width=\textwidth]{accapp1.png}
+                \caption{Virtual Keyboard Concept}
+                \label{fig:12}
+        \end{subfigure}%
+
+        
+\end{figure}
+\end{itemize}
+\end{itemize}
+
+\pagebreak
+\end{document}
